@@ -20,7 +20,6 @@ type graph struct {
 // NewGraph создаёт граф и импортирует в него файл по-умолчанию
 func NewGraph() *graph {
 	g := &graph{}
-	g.rawMap = make(map[string]map[string]int)
 	g.importFile("cities")
 	return g
 }
@@ -43,6 +42,7 @@ func (g graph) InsertVertex(name, adjacent string, distance int) {
 // generateMap на основании содержимого файла
 // генерирует карту вершин графа
 func (g *graph) generateMap() {
+	g.rawMap = make(map[string]map[string]int)
 	file, err := os.Open(g.fileName)
 	if err != nil {
 		panic(err)

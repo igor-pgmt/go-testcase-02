@@ -41,7 +41,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 	if !checkFile("./upload/" + handler.Filename) {
 		http.Redirect(w, r, "/badfile", http.StatusSeeOther)
 	} else {
-		g.fileName = "./upload/" + handler.Filename
+		g.importFile("./upload/" + handler.Filename)
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
 }
