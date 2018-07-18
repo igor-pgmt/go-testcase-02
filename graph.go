@@ -136,10 +136,16 @@ func (g *graph) extractPath(start, end string) ([]string, error) {
 	}
 	pathMap := g.fullMap[end]
 	path := []string{start}
-	for currentVertice := pathMap[start]; ; currentVertice = pathMap[currentVertice] {
+	for currentVertice := pathMap[start]; ; {
+
 		path = append(path, currentVertice)
+
 		if currentVertice == end {
 			break
+		}
+		currentVertice = pathMap[currentVertice]
+		if currentVertice == path[len(path)-2] {
+			return nil, errors.New("Пути не существует")
 		}
 	}
 
