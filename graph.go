@@ -134,21 +134,16 @@ func (g *graph) extractPath(start, end string) ([]string, error) {
 	if !endCheck {
 		return nil, errors.New("Вершина не существует: " + end)
 	}
-	this := g.fullMap[start]
-	path := []string{end}
-	for starting := this[end]; ; starting = this[starting] {
-		path = append(path, starting)
-		if starting == start {
+	pathMap := g.fullMap[end]
+	path := []string{start}
+	for currentVertice := pathMap[start]; ; currentVertice = pathMap[currentVertice] {
+		path = append(path, currentVertice)
+		if currentVertice == end {
 			break
 		}
 	}
 
-	result := make([]string, len(path))
-	for i := 0; i <= len(path)/2; i++ {
-		result[i], result[len(path)-1-i] = path[len(path)-1-i], path[i]
-	}
-
-	return result, nil
+	return path, nil
 }
 
 // checkVertices проверяет наличие вершин в графе
